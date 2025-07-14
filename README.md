@@ -29,8 +29,8 @@ A lightweight Docker management interface with Docker Hub integration, built wit
 
 ### Docker Compose (Recommended)
 ```bash
-git clone https://github.com/your/repo.git
-cd repo
+git clone https://github.com/antonio-foti/dockwave.git
+cd dockwave
 docker-compose up -d
 ```
 
