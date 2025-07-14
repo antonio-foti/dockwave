@@ -1,0 +1,63 @@
+
+services:
+  # Frontend - React Application
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://backend:3001
+      - VITE_DOCKERHUB_SEARCH_URL=https://index.docker.io/v1/search
+    depends_on:
+      - backend
+    networks:
+      - dockwave
+    restart: always
+
+  # Backend - Node.js/Express API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - REDIS_URL=redis://redis:6379
+      - DOCKERHUB_SEARCH_URL=https://index.docker.io/v1/search
+      - DOCKERHUB_REGISTRY_URL=https://registry-1.docker.io/v2
+      - JWT_SECRET=your-jwt-secret-change-in-production
+      - FRONTEND_URL=http://localhost:8080
+    depends_on:
+      - redis
+    networks:
+      - dockwave
+    restart: always
+
+  # Redis - Caching and Session Storage
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dockwave
+    restart: always
+
+volumes:
+  redis_data:
+
+networks:
+  dockwave:
+    driver: bridge
