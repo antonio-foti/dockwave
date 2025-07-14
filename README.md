@@ -4,7 +4,7 @@
 
 A lightweight Docker management interface with Docker Hub integration, built with React + TypeScript and Node.js.
 
-![usage](./usage.gif)
+![usage](./usages.gif)
 
 ## Features
 
