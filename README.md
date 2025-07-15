@@ -37,35 +37,8 @@ docker-compose up -d
 ### Access:
 ```bash
 Web UI: http://localhost:8080
-API: http://localhost:3001
 ```
 
-### Development Setup
-**Start Redis:**
-```bash
-docker run -d -p 6379:6379 redis:alpine
-```
-
-**Start services:**
-```bash
-# Backend
-cd backend && npm install && npm run dev
-
-# Frontend
-npm install && npm run dev
-```
-
-**Backend (.env)**
-```bash
-PORT=3001
-REDIS_URL=redis://localhost:6379
-JWT_SECRET=your-secret-key
-```
-
-**Frontend (vite)**
-```bash
-VITE_API_URL=http://localhost:3001
-```
 ## Contribution
 
 Contributions are welcome! Please:
